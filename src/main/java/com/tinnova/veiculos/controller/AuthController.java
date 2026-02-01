@@ -46,4 +46,4 @@ public class AuthController {
     }
 }
 
-record AuthRequest(String username, String password) {}
+

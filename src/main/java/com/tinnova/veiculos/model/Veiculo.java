@@ -20,6 +20,7 @@ public class Veiculo implements Serializable {
     private Long id;
     private String veiculo;
     private String marca;
+    private String modelo;
     private Integer ano;
     private String cor;
     private String placa; // Adicione um campo de placa para a validação de duplicidade
