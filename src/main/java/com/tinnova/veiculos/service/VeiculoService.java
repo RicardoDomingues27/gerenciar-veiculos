@@ -24,7 +24,7 @@ public class VeiculoService {
     @Autowired
     private CambioService cambioService;
 
-    // Métodos CRUD básicos e validação
+    
     public Veiculo createVeiculo(Veiculo veiculo) {
         if (veiculoRepository.existsByPlacaAndDeletedFalse(veiculo.getPlaca())) {
             throw new ValidationException("Veículo com a placa " + veiculo.getPlaca() + " já existe.");
@@ -33,11 +33,11 @@ public class VeiculoService {
     }
 
     public List<Veiculo> findAllVeiculos() {
-        return veiculoRepository.findAll(); // O @Where já filtra os deletados logicamente
+        return veiculoRepository.findAll(); 
     }
 
     public Page<Veiculo> findVeiculosWithPaginationAndSorting(Pageable pageable) {
-        return veiculoRepository.findAll(pageable); // Incluir paginação e ordenação
+        return veiculoRepository.findAll(pageable); 
     }
 
     public Veiculo findVeiculoById(Long id) {
@@ -46,26 +46,26 @@ public class VeiculoService {
     }
 
     public Veiculo updateVeiculo(Long id, Veiculo veiculoDetails) {
-        Veiculo veiculo = findVeiculoById(id); // Usa o findById que já checa se existe e não está deletado
-        // Implementar a lógica de atualização dos campos
+        Veiculo veiculo = findVeiculoById(id); 
+        
         veiculo.setMarca(veiculoDetails.getMarca());
         veiculo.setVendido(veiculoDetails.isVendido());
         return veiculoRepository.save(veiculo);
     }
 
-    // O deleteById agora executa o UPDATE por causa do @SQLDelete na Entity
+    
     public void deleteVeiculo(Long id) {
         Veiculo veiculo = findVeiculoById(id);
         veiculoRepository.deleteById(id);
     }
 
-    // Relatório: quantidade de veículos agrupados por marca
+    
     public Map<String, Long> getVeiculosCountByMarca() {
         return veiculoRepository.findAll().stream()
                 .collect(Collectors.groupingBy(Veiculo::getMarca, Collectors.counting()));
     }
 
-    // Filtros combinados e por range de preço
+   
     public List<Veiculo> searchVeiculos(String marca, Integer ano, String cor, BigDecimal minPrecoBRL, BigDecimal maxPrecoBRL) {
         Specification<Veiculo> spec = Specification.where(null);
 
