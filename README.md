@@ -52,8 +52,8 @@ com.tinnova.veiculos
 
 | Usuário | Senha   | Role  |
 |-------|--------|------|
-| admin | 123456 | ADMIN |
-| user  | 123456 | USER  |
+| admin | QRWEWASS!@#@!#4 | ADMIN |
+| user  | QRWEWASS!@#@!#4 | USER  |
 
 ---
 
@@ -118,11 +118,18 @@ http://localhost:8080/swagger-ui.html
 
 http://localhost:8080/index.html
 
+### Collections do Postam
+```
+   Está na pasta:
+  > resources/postmam/Gerenciador de Veículos API.postman_collection.json
+```
+
 ### Tela de login
 ![img.png](img.png)
 
 ### Home
-![img_1.png](img_1.png)
+
+![img_2.png](img_2.png)
 
 ### 🛠 Observações
 
@@ -131,3 +138,10 @@ Token JWT não expira (ambiente de teste)
 Redis usado apenas como cache
 
 Banco H2 em memória
+
+
+### Desenvolvido por: 
+```
+ricardo.domingues27@gmail.com
+```
+

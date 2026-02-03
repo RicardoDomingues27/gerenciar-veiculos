@@ -42,7 +42,17 @@ public class AuthController {
 
         String token = jwtService.generateToken(userDetails);
 
-        return Map.of("token", token);
+        // Extrai a role (ROLE_ADMIN / ROLE_USER)
+        String role = userDetails.getAuthorities()
+                .stream()
+                .findFirst()
+                .map(authority -> authority.getAuthority())
+                .orElse("ROLE_USER");
+
+        return Map.of(
+                "token", token,
+                "role", role
+        );
     }
 }
 

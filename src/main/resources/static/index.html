@@ -8,14 +8,16 @@
 <body>
 
 <!-- LOGIN -->
-<div id="login" class="card">
+<div id="login" class="card login-card">
     <h2>Login</h2>
-    <label for="username">Tipo de usuário</label>
+
+    <label>Tipo de usuário</label>
     <select id="username">
         <option value="ADMIN">Administrador</option>
-        <option value="USER">Usuário Comum</option>
+        <option value="USER">Usuário</option>
     </select>
-    <input id="password" type="password" placeholder="Senha"  value="QRWEWASS!@#@!#4">
+
+    <input id="password" type="password" placeholder="Senha" value="QRWEWASS!@#@!#4">
 
     <button onclick="login()">Entrar</button>
 </div>
@@ -23,23 +25,43 @@
 <!-- APP -->
 <div id="app" class="hidden">
 
+    <!-- TOP BAR -->
     <div class="top-bar">
         <span>🚗 Gerenciador de Veículos</span>
         <button class="logout" onclick="logout()">Logout</button>
     </div>
 
-    <!-- FORMULÁRIO -->
-    <div class="card" id="card-cadastrar">
+    <!-- FILTROS -->
+    <div class="card filters">
+        <h3>Filtros</h3>
+
+        <div class="filters-grid">
+            <input id="filtroMarca" placeholder="Marca" value="Toyota">
+            <input id="filtroAno" type="number" placeholder="Ano">
+            <input id="filtroCor" placeholder="Cor" value="Prata">
+            <input id="filtroMinPreco" type="number" placeholder="Preço mínimo">
+            <input id="filtroMaxPreco" type="number" placeholder="Preço máximo">
+        </div>
+
+        <button onclick="filtrarVeiculos()">Filtrar</button>
+        <button class="secondary" onclick="loadVeiculos()">Limpar</button>
+
+    </div>
+
+    <!-- FORMULÁRIO (ADMIN) -->
+    <div class="card hidden" id="card-cadastrar">
         <h3>Cadastrar / Editar Veículo</h3>
 
         <input type="hidden" id="veiculoId">
 
-        <input id="marca" placeholder="Marca" value="Toyota">
-        <input id="modelo" placeholder="Modelo" value="Corolla">
-        <input id="ano" type="number" placeholder="Ano" value="2022">
-        <input id="cor" placeholder="Cor" value="Prata">
-        <input id="placa" placeholder="Placa" value="ABC1D23">
-        <input id="precoDolar" type="number" step="0.01" placeholder="Valor (R$)" value="95000">
+        <div class="form-grid">
+            <input id="marca" placeholder="Marca" value="Toyota">
+            <input id="modelo" placeholder="Modelo" value="Corolla">
+            <input id="ano" type="number" placeholder="Ano" value="2022">
+            <input id="cor" placeholder="Cor" value="Prata">
+            <input id="placa" placeholder="Placa" value="ABC1D23">
+            <input id="precoDolar" type="number" step="0.01" placeholder="Preço em USD" value="20000">
+        </div>
 
         <button onclick="saveVeiculo()">Salvar Veículo</button>
     </div>
@@ -48,7 +70,7 @@
     <div class="card">
         <h3>Veículos Cadastrados</h3>
         <p id="emptyMessage" class="empty">Ainda não há veículos cadastrados.</p>
-        <ul id="veiculos"></ul>
+        <ul id="veiculos" class="veiculo-list"></ul>
     </div>
 
 </div>
