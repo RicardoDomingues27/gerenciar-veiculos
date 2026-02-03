@@ -41,6 +41,10 @@ function login() {
     })
     .then(data => {
         localStorage.setItem('token', data.token);
+        console.log('token');
+        if(data.token.role == 'USER'){
+            document.getElementById('card-cadastrar').classList.add('hidden');
+        }
         showToast('Login realizado com sucesso');
         loginSuccess();
     });
@@ -83,7 +87,7 @@ function loadVeiculos() {
                     <span>
                         <strong>${v.marca} ${v.modelo}</strong><br>
                         Ano: ${v.ano} | Cor: ${v.cor}<br>
-                        Placa: ${v.placa} | R$ ${v.valor}
+                        Placa: ${v.placa} | R$ ${v.precoDolar}
                     </span>
                     <div class="actions">
                         <button class="edit" onclick='editVeiculo(${JSON.stringify(v)})'>Editar</button>
@@ -144,7 +148,7 @@ function editVeiculo(v) {
     ano.value = v.ano;
     cor.value = v.cor;
     placa.value = v.placa;
-    valor.value = v.valor;
+    precoDolar.value = v.precoDolar;
 }
 
 /* EXCLUIR */
@@ -172,5 +176,5 @@ function clearForm() {
     ano.value = '';
     cor.value = '';
     placa.value = '';
-    valor.value = '';
+    precoDolar.value = '';
 }
