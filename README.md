@@ -140,6 +140,7 @@ Redis usado apenas como cache
 
 Banco H2 em memória
 
+### Cobertura de testes 90%
 
 ### Desenvolvido por: 
 ```
