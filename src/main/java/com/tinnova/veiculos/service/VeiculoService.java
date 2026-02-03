@@ -46,10 +46,14 @@ public class VeiculoService {
     }
 
     public Veiculo updateVeiculo(Long id, Veiculo veiculoDetails) {
-        Veiculo veiculo = findVeiculoById(id); 
-        
+        Veiculo veiculo = findVeiculoById(id);
+
+
+        veiculo.setPrecoDolar(veiculoDetails.getPrecoDolar());
         veiculo.setMarca(veiculoDetails.getMarca());
         veiculo.setVendido(veiculoDetails.isVendido());
+        veiculo.setCor(veiculoDetails.getCor());
+        veiculo.setModelo(veiculoDetails.getModelo());
         return veiculoRepository.save(veiculo);
     }
 
