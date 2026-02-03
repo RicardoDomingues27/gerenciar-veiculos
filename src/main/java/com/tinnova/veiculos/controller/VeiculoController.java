@@ -100,7 +100,7 @@ public class VeiculoController {
     }
 
     // GET /veiculos/relatorios/por-marca
-    @GetMapping("/veiculos/relatorios/por-marca")
+    @GetMapping("/relatorios/por-marca")
     @Operation(summary = "Retorna relatório de quantidade de veículos agrupados por marca (USER/ADMIN)")
     public ResponseEntity<Map<String, Long>> getVeiculosCountByMarca() {
         Map<String, Long> report = veiculoService.getVeiculosCountByMarca();

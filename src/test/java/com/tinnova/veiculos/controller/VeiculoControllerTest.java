@@ -23,6 +23,7 @@ import java.util.Map;
 import static org.hamcrest.Matchers.hasSize;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
@@ -131,7 +132,7 @@ class VeiculoControllerTest {
                 .andExpect(jsonPath("$.content[0].modelo").value("Corolla"))
                 .andExpect(jsonPath("$.totalElements").value(1));
 
-        Mockito.verify(veiculoService)
+        verify(veiculoService)
                 .findVeiculosWithPaginationAndSorting(pageRequest);
     }
 
@@ -180,46 +181,62 @@ class VeiculoControllerTest {
     @WithMockUser(roles = "ADMIN")
     @DisplayName("DELETE /veiculos/{id} - Deve deletar veículo (ADMIN)")
     void shouldDeleteVeiculo() throws Exception {
+
         Mockito.doNothing()
                 .when(veiculoService).deleteVeiculo(1L);
 
-        mockMvc.perform(delete("/veiculos/{id}", 1L))
+        mockMvc.perform(delete("/veiculos/{id}", 1L)
+                        .with(csrf()))
                 .andExpect(status().isNoContent());
+
+        verify(veiculoService).deleteVeiculo(1L);
     }
+
 
     // =========================
     // SEARCH
     // =========================
     @Test
     @WithMockUser
-    @DisplayName("GET /veiculos/search - Deve buscar veículos com filtros")
+    @DisplayName("GET /veiculos/busca - Deve buscar veículos com filtros")
     void shouldSearchVeiculos() throws Exception {
+
         when(veiculoService.searchVeiculos(
-                        any(), any(), any(), any(), any()))
+                any(), any(), any(), any(), any()))
                 .thenReturn(List.of(buildVeiculo()));
 
-        mockMvc.perform(get("/veiculos/search")
+        mockMvc.perform(get("/veiculos/busca")
                         .param("marca", "Toyota")
                         .param("ano", "2022")
                         .param("cor", "Preto")
-                        .param("minPrecoBRL", "100000")
-                        .param("maxPrecoBRL", "150000"))
+                        .param("minPrecoBRL", "100000.00")
+                        .param("maxPrecoBRL", "150000.00"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$[0].marca").value("Toyota"));
     }
 
+
+
     // =========================
-    // REPORT
+    // RELATÓRIO POR MARCA
     // =========================
     @Test
-    @WithMockUser
-    @DisplayName("GET /veiculos/report/marca - Deve retornar relatório por marca")
-    void shouldGetReportByMarca() throws Exception {
-        when(veiculoService.getVeiculosCountByMarca())
-                .thenReturn(Map.of("Toyota", 2L));
+    @WithMockUser // USER ou ADMIN
+    @DisplayName("GET /veiculos/relatorios/por-marca - Deve retornar relatório agrupado por marca")
+    void shouldReturnVeiculosCountByMarca() throws Exception {
 
-        mockMvc.perform(get("/veiculos/report/marca"))
+        Map<String, Long> report = Map.of(
+                "Toyota", 2L,
+                "Honda", 1L
+        );
+
+        Mockito.when(veiculoService.getVeiculosCountByMarca())
+                .thenReturn(report);
+
+        mockMvc.perform(get("/veiculos/relatorios/por-marca")
+                        .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.Toyota").value(2));
+                .andExpect(jsonPath("$.Toyota").value(2))
+                .andExpect(jsonPath("$.Honda").value(1));
     }
 }

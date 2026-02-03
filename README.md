@@ -62,7 +62,7 @@ com.tinnova.veiculos
 ### Endpoint
 
 
-POST /auth/login
+POST http://localhost:8080/auth/login
 
 
 ### Request
@@ -86,7 +86,8 @@ Use o token no header:
 
 🚘 Veículos
 Criar veículo (ADMIN)
-POST /veiculos
+POST http://localhost:8080/veiculos
+
 Authorization: Bearer <TOKEN>
 ```json
 {

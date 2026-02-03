@@ -1,5 +1,6 @@
 package com.tinnova.veiculos.service;
 
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
@@ -14,9 +15,8 @@ public class CambioService {
 
     private final WebClient webClient;
 
-    public CambioService(WebClient.Builder webClientBuilder) {
-        // Usa WebClient para chamadas reativas e modernas
-        this.webClient = webClientBuilder.baseUrl("https://economia.awesomeapi.com.br").build();
+    public CambioService(@Qualifier("cambioWebClient") WebClient webClient) {
+        this.webClient = webClient;
     }
 
     @Cacheable(value = "cotacaoDolar", key = "'latest'", unless = "#result == null") // Cache por 10 minutos

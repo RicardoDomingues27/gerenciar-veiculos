@@ -16,13 +16,13 @@ public class UserConfig {
 
         UserDetails admin = User.builder()
                 .username("admin")
-                .password(passwordEncoder.encode("123456"))
+                .password(passwordEncoder.encode("QRWEWASS!@#@!#4"))
                 .roles("ADMIN")
                 .build();
 
         UserDetails user = User.builder()
                 .username("user")
-                .password(passwordEncoder.encode("123456"))
+                .password(passwordEncoder.encode("QRWEWASS!@#@!#4"))
                 .roles("USER")
                 .build();
 
