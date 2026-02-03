@@ -61,22 +61,27 @@ com.tinnova.veiculos
 
 ### Endpoint
 
-
-POST http://localhost:8080/auth/login
-
-
-### Request
-```json
-{
-  "username": "admin",
-  "password": "123456"
-}
 ```
-### Response
-```json
-{
-  "token": "eyJhbGciOiJIUzI1NiJ9..."
-}
+Base url : http://localhost:8080
+
+Headers: 
+-Content-Type:application/json
+-Authorization:{{Authorization}}
+
+Paths
+- POST /auth/login
+- POST /veiculos
+- GET /veiculos
+- GET /veiculos/id
+- DELETE /veiculos/id
+- GET /veiculos/busca?marca=Toyota&modelo=Corolla&ano=2022&cor=Prata&minPreco=100&maxPreco=400000
+```
+
+### Collections do Postam
+Importe a collection no postman para facilitar o uso
+```
+   Está na pasta:
+  > resources/postmam/Gerenciador de Veículos API.postman_collection.json
 ```
 
 
@@ -118,11 +123,7 @@ http://localhost:8080/swagger-ui.html
 
 http://localhost:8080/index.html
 
-### Collections do Postam
-```
-   Está na pasta:
-  > resources/postmam/Gerenciador de Veículos API.postman_collection.json
-```
+
 
 ### Tela de login
 ![img.png](img.png)
